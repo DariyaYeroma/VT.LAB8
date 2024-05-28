@@ -7,7 +7,7 @@ using Yeroma.UI.Services.FlowersService;
 
 namespace Yeroma.UI.Areas.Admin.Pages
 {
-    public class CreateModel(ICategoryService categoryService, IFlowersService flowersService) : PageModel
+    public class CreateModel(ICategoryService categoryService, IProductService flowersService) : PageModel
     {
         public async Task<IActionResult>OnGet()
         {

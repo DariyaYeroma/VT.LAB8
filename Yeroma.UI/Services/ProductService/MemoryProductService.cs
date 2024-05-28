@@ -6,7 +6,7 @@ using Yeroma.UI.Services.CategoryService;
 
 namespace Yeroma.UI.Services.FlowersService
 {
-    public class MemoryFlowersService : IFlowersService
+    public class MemoryFlowersService : IProductService
     {
         private readonly IConfiguration _config;
         List<Flower> _flowers;
@@ -269,10 +269,10 @@ namespace Yeroma.UI.Services.FlowersService
                 },
             };
         }
-        public Task<ResponseData<FlowersListModel<Flower>>> GetFlowersListAsync(string? categoryNormalizedName, int pageNo = 1)
+        public Task<ResponseData<ProductListModel<Flower>>> GetFlowersListAsync(string? categoryNormalizedName, int pageNo = 1)
         {
             // Создать объект результата
-            var result = new ResponseData<FlowersListModel<Flower>>();
+            var result = new ResponseData<ProductListModel<Flower>>();
             // Id категории для фильрации
             int? categoryId = null;
             // если требуется фильтрация, то найти Id категории
@@ -288,7 +288,7 @@ namespace Yeroma.UI.Services.FlowersService
             // получить общее количество страниц
             int totalPages = (int)Math.Ceiling(data.Count / (double)pageSize);
             // получить данные страницы
-            var listData = new FlowersListModel<Flower>()
+            var listData = new ProductListModel<Flower>()
             {
                 Items = data.Skip((pageNo - 1) * pageSize).Take(pageSize).ToList(),
                 CurrentPage = pageNo,

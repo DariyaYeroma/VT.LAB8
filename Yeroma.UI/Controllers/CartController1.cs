@@ -9,11 +9,11 @@ namespace Yeroma.UI.Controllers
 {
     public class CartController : Controller
     {
-        private readonly IFlowersService _flowersService;
+        private readonly IProductService _productService;
         private Cart _cart;
-        public CartController(IFlowersService flowersService)
+        public CartController(IProductService productService)
         {
-            _flowersService = flowersService;
+            _productService = productService;
         }
         // GET: CartController
         public ActionResult Index()
@@ -24,7 +24,7 @@ namespace Yeroma.UI.Controllers
         [Route("[controller]/add/{id:int}")]
         public async Task<ActionResult> Add(int id, string returnUrl)
         {
-            var data = await _flowersService.GetFlowersByIdAsync(id);
+            var data = await _productService.GetFlowersByIdAsync(id);
             if (data.Success)
             {
                 _cart = HttpContext.Session.Get<Cart>("cart") ?? new();

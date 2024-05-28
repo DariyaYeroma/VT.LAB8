@@ -6,7 +6,7 @@ using Yeroma.UI.Services.CategoryService;
 
 namespace Yeroma.UI.Services.FlowersService
 {
-    public class ApiFlowersService(HttpClient httpClient) : IFlowersService
+    public class ApiProductService(HttpClient httpClient) : IProductService
     {
         public async Task<ResponseData<Flower>> CreateFlowersAsync(Flower flowers, IFormFile? formFile)
         {
@@ -66,7 +66,7 @@ namespace Yeroma.UI.Services.FlowersService
             return new ResponseData<Flower>() { Data = response };
         }
 
-        public async Task<ResponseData<FlowersListModel<Flower>>> GetFlowersListAsync(string? categoryNormalizedName, int pageNo = 1)
+        public async Task<ResponseData<ProductListModel<Flower>>> GetFlowersListAsync(string? categoryNormalizedName, int pageNo = 1)
         {
             var uri = httpClient.BaseAddress;
             var queryData = new Dictionary<string, string>();
@@ -80,10 +80,10 @@ namespace Yeroma.UI.Services.FlowersService
             var result = await httpClient.GetAsync(uri + query.Value);
             if (result.IsSuccessStatusCode)
             {
-                return await result.Content.ReadFromJsonAsync<ResponseData<FlowersListModel<Flower>>>();
+                return await result.Content.ReadFromJsonAsync<ResponseData<ProductListModel<Flower>>>();
             };
 
-            var response = new ResponseData<FlowersListModel<Flower>>
+            var response = new ResponseData<ProductListModel<Flower>>
             { Success = false, ErrorMessage = "Ошибка чтения API" };
             return response;
         }

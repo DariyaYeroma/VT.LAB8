@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Security.Claims;
 using Yeroma.UI.Data;
+using Yeroma.UI.Middleware;
 using Yeroma.UI.Services;
 using Yeroma.UI.Services.CategoryService;
 using Yeroma.UI.Services.FlowersService;
@@ -41,8 +42,8 @@ builder.Services.AddAuthorization(opt =>
 
 //builder.Services.AddSingleton<IEmailSender, NoOpEmailSender>();
 
-builder.Services.AddHttpClient<IFlowersService, ApiFlowersService>(opt => opt.BaseAddress = new Uri("https://localhost:7002/api/flowers1/"));
-builder.Services.AddHttpClient<ICategoryService, ApiCategoryService>(opt => opt.BaseAddress = new Uri("https://localhost:7002/api/categories1/"));
+builder.Services.AddHttpClient<IProductService, ApiProductService>(opt => opt.BaseAddress = new Uri("https://localhost:7002/api/flowers1"));
+builder.Services.AddHttpClient<ICategoryService, ApiCategoryService>(opt => opt.BaseAddress = new Uri("https://localhost:7002/api/categories1"));
 
 builder.Services.AddControllersWithViews();
 
@@ -69,17 +70,15 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
+app.UseFileLogger();
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
-app.UseSession();
 
 var serviceProvider = app.Services.CreateScope().ServiceProvider;
 var logger = serviceProvider.GetRequiredService<ILoggerFactory>();

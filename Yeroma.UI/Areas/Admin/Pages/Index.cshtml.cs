@@ -9,8 +9,8 @@ namespace Yeroma.UI.Areas.Admin.Pages
     [Authorize(Policy = "admin")]
     public class IndexModel : PageModel
     {
-        private readonly IFlowersService _flowersService;
-        public IndexModel(IFlowersService flowersService)
+        private readonly IProductService _flowersService;
+        public IndexModel(IProductService flowersService)
         {
             //_context = context;
             _flowersService = flowersService;

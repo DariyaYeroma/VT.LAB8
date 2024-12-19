@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Serilog;
 using static Yeroma.UI.Controllers.HomeController;
 
 namespace Yeroma.UI.Controllers

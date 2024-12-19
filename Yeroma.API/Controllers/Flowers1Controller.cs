@@ -18,17 +18,18 @@ namespace Yeroma.API.Controllers
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _env;
 
-        public Flowers1Controller(AppDbContext context)
+        public Flowers1Controller(AppDbContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
-        // GET: api/Dishes
+        // GET: api/Flowers1
         [HttpGet]
-        public async Task<ActionResult<ResponseData<FlowersListModel<Flower>>>> GetFlower( string? category, int pageNo = 1, int pageSize = 3)
+        public async Task<ActionResult<ResponseData<ProductListModel<Flower>>>> GetFlower( string? category, int pageNo = 1, int pageSize = 3)
         {
             // Создать объект результата
-            var result = new ResponseData<FlowersListModel<Flower>>();
+            var result = new ResponseData<ProductListModel<Flower>>();
             // Фильтрация по категории загрузка данных категории
             var data = _context.Flowers .Include(d => d.Category).Where(d => String.IsNullOrEmpty(category) || d.Category.NormalizedName.Equals(category));
             // Подсчет общего количества страниц
@@ -36,7 +37,7 @@ namespace Yeroma.API.Controllers
             if (pageNo > totalPages)
                 pageNo = totalPages;
             // Создание объекта ProductListModel с нужной страницей данных
-            var listData = new FlowersListModel<Flower>()
+            var listData = new ProductListModel<Flower>()
             {
                 Items = await data.Skip((pageNo - 1) * pageSize).Take(pageSize).ToListAsync(),
                 CurrentPage = pageNo,
@@ -57,7 +58,7 @@ namespace Yeroma.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Flower>> GetFlower(int id)
         {
-            var flower = await _context.Flowers.FindAsync(id);
+            var flower = await _context.Flowers.Include(d => d.Category).FirstOrDefaultAsync(d => d.Id == id); ;
 
             if (flower == null)
             {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Flowers.Domain.Models
 {
-    public class FlowersListModel<T>
+    public class ProductListModel<T>
     {
         // запрошенный список объектов
         public List<T> Items { get; set; } = new();
@@ -16,7 +16,7 @@ namespace Flowers.Domain.Models
         // общее количество страниц
         public int TotalPages { get; set; } = 1;
 
-        public static implicit operator FlowersListModel<T>(FlowersListModel<Flower> v)
+        public static implicit operator ProductListModel<T>(ProductListModel<Flower> v)
         {
             throw new NotImplementedException();
         }

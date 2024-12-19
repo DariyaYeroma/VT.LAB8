@@ -5,7 +5,7 @@ using Yeroma.UI.Services.FlowersService;
 
 namespace Yeroma.UI.Controllers
 {
-    public class ProductController(ICategoryService categoryService, IFlowersService flowersService) : Controller
+    public class ProductController(ICategoryService categoryService, IProductService flowersService) : Controller
     {
         [Route("Catalog")]
         [Route("Catalog/{category}")]

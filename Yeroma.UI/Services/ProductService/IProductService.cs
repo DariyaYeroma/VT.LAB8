@@ -3,7 +3,7 @@ using Flowers.Domain.Models;
 
 namespace Yeroma.UI.Services.FlowersService
 {
-    public interface IFlowersService
+    public interface IProductService
     {
         /// <summary>
         /// Получение списка всех объектов
@@ -11,7 +11,7 @@ namespace Yeroma.UI.Services.FlowersService
         /// <param name="categoryNormalizedName">нормализованное имя категории для фильтрации</param>
         /// <param name="pageNo">номер страницы списка</param>
         /// <returns></returns>
-        public Task<ResponseData<FlowersListModel<Flower>>> GetFlowersListAsync(string?categoryNormalizedName, int pageNo = 1);
+        public Task<ResponseData<ProductListModel<Flower>>> GetFlowersListAsync(string?categoryNormalizedName, int pageNo = 1);
         /// <summary>
         /// Поиск объекта по Id
         /// </summary>
